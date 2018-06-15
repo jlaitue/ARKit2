@@ -23,16 +23,25 @@ class ViewController: UIViewController {
 
     
     @IBAction func add(_ sender: Any) {
-        let node = SCNNode()
+        let plane = SCNNode(geometry: SCNPlane(width: 0.1, height: 0.1))
+        plane.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+        plane.position = SCNVector3(0,0,-0.3)
+        plane.eulerAngles = SCNVector3(270.degreesToRadians,0,0)
+        self.sceneView.scene.rootNode.addChildNode(plane)
         
-        let boxNode = SCNNode(geometry: SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0))
-        boxNode.geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
+        let pyramid = SCNNode(geometry: SCNPyramid(width: 0.1, height: 0.1, length: 0.1))
+        pyramid.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+        pyramid.position = SCNVector3(0,0,-0.3)
+        pyramid.eulerAngles = SCNVector3(90.degreesToRadians,0,0)
+        plane.addChildNode(pyramid)
+//        let node = SCNNode()
+//
+//        let boxNode = SCNNode(geometry: SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0))
+//        boxNode.geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
+//
+//        let doorNode = SCNNode(geometry: SCNPlane(width: 0.03, height: 0.06))
+//        doorNode.geometry?.firstMaterial?.diffuse.contents = UIColor.brown
         
-        let doorNode = SCNNode(geometry: SCNPlane(width: 0.03, height: 0.06))
-        doorNode.geometry?.firstMaterial?.diffuse.contents = UIColor.brown
-        
-        let cylinderNode = SCNNode(geometry: SCNCylinder(radius: 0.05, height: 0.05))
-        cylinderNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
 //        Standard 3D geometry
 //        node.geometry = SCNCapsule(capRadius: 0.1, height: 0.3)
 //        node.geometry = SCNCone(topRadius: 0.1, bottomRadius: 0.1, height: 0.5)
@@ -51,22 +60,19 @@ class ViewController: UIViewController {
 //        path.addLine(to: CGPoint(x:0.4, y:0))
 //        let shape = SCNShape(path: path, extrusionDepth:0.05)
 //        node.geometry = shape
-        node.geometry = SCNPyramid(width: 0.1, height: 0.1, length: 0.1)
-        node.geometry?.firstMaterial?.specular.contents = UIColor.white
-        node.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+//        node.geometry = SCNPyramid(width: 0.1, height: 0.1, length: 0.1)
+//        node.geometry?.firstMaterial?.specular.contents = UIColor.white
+//        node.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
 //        let x = randomNumbers(firstNum: -0.3, secondNum: 0.3)
 //        let y = randomNumbers(firstNum: -0.3, secondNum: 0.3)
 //        let z = randomNumbers(firstNum: -0.3, secondNum: 0.3)
 
-        node.position = SCNVector3(0.2,0.1,-0.2)
-        cylinderNode.position = SCNVector3(-0.3,0.2,-0.3)
-        boxNode.position = SCNVector3(0,-0.05,0)
-        doorNode.position = SCNVector3(0,-0.02,0.055)
-        node.addChildNode(cylinderNode)
-        node.addChildNode(boxNode)
-        boxNode.addChildNode(doorNode)
-        self.sceneView.scene.rootNode.addChildNode(node)
-//        self.sceneView.scene.rootNode.addChildNode(cylinderNode)
+//        node.position = SCNVector3(0.2,0.1,-0.2)
+//        boxNode.position = SCNVector3(0,-0.05,0)
+//        doorNode.position = SCNVector3(0,-0.02,0.055)
+//        node.addChildNode(boxNode)
+//        boxNode.addChildNode(doorNode)
+//        self.sceneView.scene.rootNode.addChildNode(node)
 
     }
     
@@ -88,5 +94,10 @@ class ViewController: UIViewController {
             min(firstNum,secondNum)
     }
     
+}
+
+extension Int{
+    
+    var degreesToRadians: Double { return Double(self) * .pi/180}
 }
 
